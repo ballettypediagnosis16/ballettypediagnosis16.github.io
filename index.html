@@ -176,6 +176,11 @@
             background-color: #d35400;
         }
 
+        /* 結果画面カード自体の上下余白を縮小 */
+        #result-screen {
+            padding: 15px 10px !important;
+        }
+
         /* １行目：「あなたのタイプは…」のスタイル */
         .result-label {
             font-size: 16px;
@@ -187,9 +192,9 @@
         .result-type-name {
             font-size: 28px;
             font-weight: bold;
-            padding: 10px 25px; /* 文字のまわりの余白（枠のサイズ） */
+            padding: 6px 20px; /* 文字のまわりの余白（枠のサイズ） */
             border-radius: 50px; /* カプセル型の角丸にする */
-            margin-bottom: 6px; /* ３行目との間隔を少し調整(15px → 6px) */
+            margin-bottom: 2px; /* ３行目との間隔を少し調整(15px→6px→2px) */
             letter-spacing: 1px;
             display: inline-block;
         }
@@ -198,7 +203,7 @@
         .result-type-code {
             font-size: 18px;
             font-weight: bold;
-            margin-bottom: 4px; /* 20px → 4px */
+            margin-bottom: 2px; /* 20px → 4px → 2px */
             letter-spacing: 2px;
         }
 
@@ -235,7 +240,7 @@
         #result-charts-container {
             width: 100%;
             max-width: 500px;
-            margin: 8px auto 0;
+            margin: 4px auto;
             padding: 12px 15px;
             background-color: rgba(255, 255, 255, 0.6);
             border-radius: 15px;
@@ -392,6 +397,10 @@
                 justify-content: space-between !important;
             }
 
+            #result-image-container {
+                max-width: 130px !important;
+            }
+
             .label-text {
                 font-size: 14px !important;
                 white-space: nowrap !important;
@@ -406,7 +415,7 @@
 
             .result-type-name {
                 font-size: 24px !important;
-                padding: 6px 18px !important;
+                padding: 4px 16px !important;
                 margin-bottom: 4px !important;
             }
 
@@ -905,18 +914,16 @@
     <h1>診断結果</h1>
     <div id="result"></div>
 
-    <div id="result-image-container" style="margin: 15px auto; width: 100%; max-width: 320px; text-align: center;">
+    <div id="result-image-container" style="margin: 0 auto; width: 100%; max-width: 150px; text-align: center;">
         <img id="result-image" src="" alt="" style="width: 100%; height: auto; display: none; border-radius: 12px;">
     </div>
 
-    <div id="result-charts-container">
-        </div>
+    <div id="result-charts-container"></div>
 
     <!-- JavaScriptから解説文を受け取る枠 -->
     <div id="result-description-box"></div>
 
-    <br><br>
-    <button onclick="location.reload()">もう一度診断する</button>
+    <button onclick="location.reload()" style="margin-top: 20px;">もう一度診断する</button>
 </div>
 
     <script>
