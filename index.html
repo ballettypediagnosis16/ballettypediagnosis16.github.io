@@ -22,8 +22,6 @@
     }
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
     <meta property="og:site_name" content="バレエタイプ診断16" />
 
     <meta charset="UTF-8">
@@ -346,81 +344,6 @@
         /* 要素を非表示にするためのクラス */
         .hidden {
             display: none !important;
-        }
-
-        /* シェアボタンのデザイン */
-        .btn-share {
-            width: 100%;
-            max-width: 320px;
-            padding: 14px 20px;
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .btn-share:active {
-            transform: scale(0.97);
-        }
-
-        /* モーダルオーバーレイ（背景の暗がり） */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            z-index: 1000;
-            opacity: 1;
-            transition: opacity 0.3s ease;
-        }
-
-        /* モーダル非表示クラス */
-        .modal-overlay.hidden {
-            display: none;
-            opacity: 0;
-        }
-
-        /* 下からスライドインするポップアップ本体 */
-        .modal-content {
-            background: #ffffff;
-            width: 100%;
-            max-width: 500px;
-            padding: 24px 20px;
-            border-radius: 20px 20px 0 0;
-            text-align: center;
-            box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.15);
-            animation: slideUp 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        @keyframes slideUp {
-            from { transform:translateY(100%); }
-            to { transform:translateY(0); }
-        }
-
-        .modal-text {
-            font-size: 14px;
-            line-height: 1.8;
-            color: #333333;
-            margin-bottom: 20px;
-        }
-
-        .modal-close-btn {
-            background: #f0f0f0;
-            color: #666666;
-            border: none;
-            padding: 10px 30px;
-            border-radius: 20px;
-            font-weight: bold;
-            cursor: pointer;
         }
 
         /* スマホ（画面幅480px以下）の時の余白均等調整 */
@@ -961,42 +884,20 @@
     <button onclick="calculateResult()">診断する</button>
 </div> <div id="result-screen" class="hidden">
     <h1>診断結果</h1>
-    <!-- 画像化したい範囲を capture-area で囲む -->
-    <div id="capture-area" style="background: #ffffff; padding: 20px; border-radius: 16px;">
-        <div id="result"></div>
+    <div id="result"></div>
 
-        <div id="result-image-container" style="margin: 15px auto; width: 100%; max-width: 320px; text-align: center;">
-            <img id="result-image" src="" alt="" style="width: 100%; height: auto; display: none; border-radius: 12px;">
-        </div>
-
-        <div id="result-charts-container"></div>
+    <div id="result-image-container" style="margin: 15px auto; width: 100%; max-width: 320px; text-align: center;">
+        <img id="result-image" src="" alt="" style="width: 100%; height: auto; display: none; border-radius: 12px;">
     </div>
+
+    <div id="result-charts-container">
+        </div>
 
     <!-- JavaScriptから解説文を受け取る枠 -->
     <div id="result-description-box"></div>
 
-    <br>
-
-    <!-- 診断結果をダウンロード＆シェアボタン -->
-    <button id="download-btn" onclick="downloadAndShare()" class="btn-share">
-        診断結果をダウンロード＆シェア
-    </button>
-
     <br><br>
     <button onclick="location.reload()">もう一度診断する</button>
-</div>
-
-<!-- 下から飛び出すシェア用ポップアップ（モーダル） -->
-<div id="share-modal" class="modal-overlay hidden" onclick="closeModal(event)">
-    <div class="modal--content" onclick="event.stopPropagation()">
-        <p class="modal-text">
-            診断おつかれさまでした！<br>
-            結果をSNSでシェアする時には<strong>「#バレエタイプ診断16」</strong>を<br>
-            タグ付けいただけると大変うれしいです<br>
-            ご協力ありがとうございました！
-        </p>
-        <button class="modal-close-btn" onclick="closeModal()">閉じる</button>
-    </div>
 </div>
 
     <script>
@@ -1306,52 +1207,6 @@
                 descriptionBox.className = ""; //一旦デザインをクリア
                 descriptionBox.classList.add(`border-${colorGroup}`);
             }
-
-        function downloadAndShare() {
-            const captureArea = document.getElementById("capture-area");
-            const downloadBtn = document.getElementById("download-btn");
-
-            // 連続クリック防止
-            downloadBtn.innerText = "画像を生成中...";
-            downloadBtn.disabled = true;
-
-            // キャプチャエリア内の画像が読み込み完了しているか確認したうえで画像化
-            html2canvas(captureArea, {
-                scale: 2, //解像度を上げて綺麗にする
-                useCors: true, //クロスドメイン画像対応
-                backgroundColor: "#ffffff"
-            }).then(canvas => {
-                // 画像データをURLに変換してダウンロード発動
-                const link = document.createElement("a");
-                link.href = canvas.toDataURL("image/png");
-                link.download = "診断結果.png";
-                link.click();
-
-                // ボタンの表示を戻す
-                downloadBtn.innerText = "診断結果をダウンロード＆シェア";
-                doenloadBtn.disabled = false;
-
-                // 下からのポップアップを表示
-                openModal();
-            }).catch(err => {
-                console.error("画像生成エラー:", err);
-                alert("画像の保存に失敗しました。スクリーンショットをご利用ください。");
-                downloadBtn.innerText = "診断結果をダウンロード＆シェア";
-                downloadBtn.disabled = false;
-            });
-        }
-
-        // モーダルを開く関数
-        function openModal() {
-            const modal = document.getElementById("share-modal");
-            modal.classList.remove("hidden");
-        }
-
-        // モーダルを閉じる関数
-        function closeModal(event) {
-            const modal = document.getElementById("share-modal");
-            modal.classList.add("hidden");
-        }
 
             // 画面の切り替え処理
             // 1. 質問画面に 「hidden」 クラスをつけて隠す
