@@ -189,7 +189,7 @@
             font-weight: bold;
             padding: 10px 25px; /* 文字のまわりの余白（枠のサイズ） */
             border-radius: 50px; /* カプセル型の角丸にする */
-            margin-bottom: 15px; /* ３行目との間隔を少し調整 */
+            margin-bottom: 6px; /* ３行目との間隔を少し調整(15px → 6px) */
             letter-spacing: 1px;
             display: inline-block;
         }
@@ -198,8 +198,16 @@
         .result-type-code {
             font-size: 18px;
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 4px; /* 20px → 4px */
             letter-spacing: 2px;
+        }
+
+        .result-character-image {
+            max-width: 150%;
+            width: 100%;
+            height: auto;
+            margin: 4px auto 8px;
+            display: block;
         }
 
         /* ４グループずつのカラー判定用クラス */
@@ -227,8 +235,8 @@
         #result-charts-container {
             width: 100%;
             max-width: 500px;
-            margin: 20px auto;
-            padding: 15px;
+            margin: 8px auto 0;
+            padding: 12px 15px;
             background-color: rgba(255, 255, 255, 0.6);
             border-radius: 15px;
             box-sizing: border-box;
@@ -236,7 +244,7 @@
 
         /* 各グラフ（１項目ごと）の塊 */
         .chart-row {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: center;
         }
         .chart-row:lastchild {
@@ -395,6 +403,17 @@
             .btn-large { width: 30px; height: 30px; }
             .btn-medium { width: 23px; height: 23px; }
             .btn-small { width: 16px; height: 16px; }
+
+            .result-type-name {
+                font-size: 24px !important;
+                padding: 6px 18px !important;
+                margin-bottom: 4px !important;
+            }
+
+            .result-character-image {
+                max-width: 130px !important;
+                margin: 2px auto 6px !important;
+            }
 
         }
 
