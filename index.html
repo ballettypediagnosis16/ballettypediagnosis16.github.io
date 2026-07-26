@@ -45,8 +45,49 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         }
 
+        /* 上部固定ヘッダーの設定 */
+        #sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+            text-align: center;
+            padding: 16px 0;
+            background-color: #eef7f2;
+        }
+
+        /* ヘッダー直下に重なるグラデーションフェードアウト層 */
+        #sticky-header::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(
+                to bottom,
+                rgba(238, 247, 242, 1) 0%,
+                rgba(238, 247, 242, 0) 100%
+            );
+
+            /* 透明部分を透過クリック可能に */
+            pointer-events: none;
+        }
+
+        /* ヘッダー内のタイトル文字 */
+        #sticky-header h1 {
+            margin: 0;
+            font-size: 37px;
+            font-weight: bold;
+            color: #333;
+            pointer-events: auto;
+        }
+
         /* 質問画面と結果画面を中央寄せにする設定 */
         #quiz-screen, #result-screen {
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 40px);
+            mask-image: linear-gradient(to bottom, transparent 0px, black 40px);
+            padding-top: 10px;
             display: flex;
             flex-direction: column; /* 中の要素を上から下に縦に並べる */
             align-items: center;    /* 縦に並んだ要素を 「左右中央」 に寄せる */
@@ -420,9 +461,9 @@
             .side-yes { margin: 0 4px 0 0 !important; }
             .side-no { margin: 0 0 0 4px !important; }
 
-            .btn-large { width: 30px; height: 30px; }
-            .btn-medium { width: 23px; height: 23px; }
-            .btn-small { width: 16px; height: 16px; }
+            .btn-large { width: 34px; height: 34px; }
+            .btn-medium { width: 26px; height: 26px; }
+            .btn-small { width: 18px; height: 18px; }
 
             .result-type-name {
                 font-size: 26px !important;
@@ -441,9 +482,11 @@
 </head>
 <body>
 
-<div id="quiz-screen">
+<div id="sticky-header">
     <h1>バレエタイプ診断16</h1>
-    
+</div>
+
+<div id="quiz-screen">
     <div class="question">
         <p>01.誰もが一度は耳にしたことがあるような「超王道の定番名作」を鑑賞するのが好きだ。</p>
         <div class="mbti-options">
@@ -1230,13 +1273,16 @@
             }
 
             // 画面の切り替え処理
-            // 1. 質問画面に 「hidden」 クラスをつけて隠す
+            // １．質問画面に 「hidden」 クラスをつけて隠す
             document.getElementById("quiz-screen").classList.add("hidden");
 
-            // 2. 結果画面から 「hidden」 クラスを取り除いて表示する
+            // ２．固定ヘッダーも隠す
+            document.getElementById("sticky-header").classList.add("hidden");
+
+            // ３．結果画面から 「hidden」 クラスを取り除いて表示する
             document.getElementById("result-screen").classList.remove("hidden");
 
-            // 3. 画面を一番上までスクロールさせる
+            // ４．画面を一番上までスクロールさせる
             window.scrollTo(0,0);
         }
     </script>
