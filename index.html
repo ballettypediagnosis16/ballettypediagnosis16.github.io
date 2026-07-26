@@ -406,6 +406,22 @@
             margin-bottom: 6px;
         }
 
+        /* SNS投稿を促すテキストのスタイリング */
+        .share-prompt {
+            text-align: center;
+            font-size: 18px;
+            color: #333333;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        /* 太字部分の強調 */
+        .share-prompt strong {
+            font-weight: bold;
+            color: #1da1f2;
+        }
+
         /* 要素を非表示にするためのクラス */
         .hidden {
             display: none !important;
@@ -976,6 +992,10 @@
 
     <!-- JavaScriptから解説文を受け取る枠 -->
     <div id="result-description-box"></div>
+
+    <div class="share-prompt">
+        <strong>#バレエタイプ診断16</strong>で投稿してね！
+    </div>
 
     <button onclick="location.reload()" style="margin-top: 20px;">もう一度診断する</button>
 </div>
