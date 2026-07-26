@@ -34,13 +34,8 @@
             font-family: sans-serif;
             max-width: 600px;
             margin: 0 auto; /* 左右のマージンを自動にして、コンテンツ全体を中央寄せ */
-            padding: 40px 20px;
-            background: linear-gradient(
-                135deg,
-                #f8fbf9 0%,
-                #eef7f2 100%
-            );
-            background-attachment: fixed;
+            padding: 30px 20px 15px 20px;
+            background-color: #fafafa;
             min-height: 100vh;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         }
@@ -87,17 +82,18 @@
         #quiz-screen, #result-screen {
             -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 40px);
             mask-image: linear-gradient(to bottom, transparent 0px, black 40px);
-            padding-top: 10px;
+            padding-top: 20px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-bottom: 50px;
             display: flex;
             flex-direction: column; /* 中の要素を上から下に縦に並べる */
             align-items: center;    /* 縦に並んだ要素を 「左右中央」 に寄せる */
             text-align: center;     /* テキスト事態も中央揃えにする */
 
             background-color: rgba(235, 245, 240, 0.85);
-            padding: 30px 20px;
             border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         /* 質問１つひとつのボックス */
@@ -1219,6 +1215,21 @@
                 colorGroup = "group4";
             }
 
+            // 各グループに対応するbody背景色のマップを定義
+            const bodyBgColors = {
+                "group1": "rgba(247, 247, 238, 1)",
+                "group2": "rgba(238, 244, 247, 1)",
+                "group3": "rgba(247, 238, 238, 1)",
+                "group4": "rgba(244, 238, 247, 1)"
+            };
+
+            // 判定されたcolorGroupに応じてresult-screenの背景色を変更
+            const resultContainer = document.getElementById("result-screen");
+            if (resultContainer && bodyBgColors[colorGroup]) {
+                const targetColor = bodyBgColors[colorGroup];
+                resultContainer.style.backgroundColor = targetColor;
+            }
+
             // HTML構造を３行に分けて流し込み
             document.getElementById("result").innerHTML = `
                 <div class="result-label">あなたのタイプは…</div>
@@ -1295,13 +1306,10 @@
             // 画面の切り替え処理
             // １．質問画面に 「hidden」 クラスをつけて隠す
             document.getElementById("quiz-screen").classList.add("hidden");
-
             // ２．固定ヘッダーも隠す
             document.getElementById("sticky-header").classList.add("hidden");
-
             // ３．結果画面から 「hidden」 クラスを取り除いて表示する
             document.getElementById("result-screen").classList.remove("hidden");
-
             // ４．画面を一番上までスクロールさせる
             window.scrollTo(0,0);
         }
