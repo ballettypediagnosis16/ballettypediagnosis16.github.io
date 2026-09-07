@@ -26,8 +26,8 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>バレエタイプ診断16 | あなたにぴったりのバレエ作品を見つけよう</title>
-    <meta name="description" content="無料でできる、バレエ版16タイプ診断です。28個の質問に答えるだけで、あなたの性格や価値観にぴったりのバレエ作品が分かります！「ドン・キホーテ」や「くるみ割り人形」、「パリの炎」や「ジゼル」など、あなたにオススメの作品をご紹介！">
+    <title>バレエタイプ診断16 | オススメのバレエ作品が見つかる16タイプ診断</title>
+    <meta name="description" content="バレエ版16タイプ診断です。28個の質問に答えるだけで、あなたの性格や価値観にぴったりのバレエ作品が分かります！「ドン・キホーテ」や「くるみ割り人形」、「パリの炎」や「ジゼル」など、あなたにオススメの作品をご紹介！">
     <style>
         /* 画面全体の共通設定 */
         body {
@@ -78,8 +78,8 @@
             pointer-events: auto;
         }
 
-        /* 質問画面と結果画面を中央寄せにする設定 */
-        #quiz-screen, #result-screen {
+        /* 質問画面を中央寄せにする設定 */
+        #quiz-screen {
             -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 40px);
             mask-image: linear-gradient(to bottom, transparent 0px, black 40px);
             padding-top: 20px;
@@ -213,9 +213,174 @@
             background-color: #d35400;
         }
 
-        /* 結果画面カード自体の上下余白を縮小 */
+        /* 結果画面を中央寄せにする設定 */
         #result-screen {
-            padding: 15px 10px !important;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0px, black 40px);
+            mask-image: linear-gradient(to bottom, transparent 0px, black 40px);
+            padding: 10px 15px 20px 15px !important; /* 上下余白の縮小 */
+            display: flex;
+            flex-direction: column; /* 中の要素を上から下に縦に並べる */
+            align-items: center;    /* 縦に並んだ要素を 「左右中央」 に寄せる */
+            text-align: center;     /* テキスト事態も中央揃えにする */
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+
+            background-color: rgba(235, 245, 240, 0.85);
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* 結果画面のカード */
+        .result-card {
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 24px;
+            padding: 24px 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            box-sizing: border-box;
+            overflow: hidden;
+            position: relative;
+            height: 72vh;
+            max-height: 72vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* 固定タイトル */
+        .result-header-title {
+            text-align: center;
+            font-size: 22px;
+            margin: 0;
+            font-weight: bold;
+            color: #333;
+            flex-shrink: 0;
+        }
+
+        /* スライダー */
+        .slider-container {
+            width: 100%;
+            height: 100%;
+            min-height: 0;
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slider-track {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            min-height: 0;
+            transition: transform 0.35s ease-in-out;
+        }
+
+        .slide-page {
+            width: 33.333%;
+            height: 100%;
+            box-sizing: border-box;
+            padding: 0 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .slide-subtitle {
+            font-size: 16px;
+            font-weight: bold;
+            color: #444;
+            text-align: center;
+        }
+
+        .slide-page-2 {
+            justify-content: center;
+            align-items: center;
+            min-height: 0;
+            box-sizing: border-box;
+        }
+
+        .subtitle-graph {
+            margin: 0 0 20px 0;
+        }
+
+        .slide-page-3 {
+            justify-content: flex-start;
+            height: 100%;
+            min-height: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 20px;
+        }
+
+        .slide-page-3::-webkit-scrollbar {
+            width: 4px;
+        }
+        .slide-page-3::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 3px;
+        }
+        .slide-page-3::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.25);
+            border-radius: 3px;
+        }
+
+        .subtitle-desc {
+            flex-shrink: 0;
+        }
+
+        /* 画像サイズ調整 */
+        .character-image-wrapper {
+            margin-top: 10px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .character-image-wrapper img {
+            max-width: 100%;
+            max-height: 200px;
+            object-fit: contain;
+        }
+
+        /* ドットインジケーター */
+        .dots-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 0;
+            margin: 0;
+            flex-shrink: 0;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #b1b1b1;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+
+        .dot.active {
+            transform: scale(1.3);
+            background-color: #333;
+        }
+
+        /* カード外下部エリア */
+        .result-footer-actions {
+            width: 100%;
+            text-align: center;
+            margin-top: 15px;
         }
 
         /* １行目：「あなたのタイプは…」のスタイル */
@@ -277,11 +442,7 @@
         #result-charts-container {
             width: 100%;
             max-width: 500px;
-            margin: 4px auto;
-            padding: 12px 15px;
-            background-color: rgba(255, 255, 255, 0.6);
-            border-radius: 15px;
-            box-sizing: border-box;
+            margin: 0;
         }
 
         /* 各グラフ（１項目ごと）の塊 */
@@ -370,18 +531,19 @@
         /* 解説テキストの角丸枠のスタイル */
         #result-description-box {
             margin-top: 25px;
-            padding: 20px;
+            margin-bottom: 10px;
             width: 100%;
+            padding: 20px;
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
             box-sizing: border-box;
             background-color: #ffffff;
             border: 1px solid #e0e0e0;
             border-radius: 15px;
 
             /* 上下中央揃え・左右左揃えのための設定 */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: stretch;
             text-align: left;
 
             /* イタリック（斜体）とフォントの調整 */
@@ -389,6 +551,16 @@
             font-size: 15px;
             line-height: 1.6;
             color: #444444;
+
+            -webkit-overflow-scrolling: touch;
+        }
+
+        #result-description-box::-webkit-scrollbar {
+            width: 4px;
+        }
+        #result-description-box::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.15);
+            border-radius: 4px;
         }
 
         /* 【おすすめ作品一覧】の見出しだけ中央寄せにする */
@@ -985,24 +1157,51 @@
     </div>
 
     <button onclick="calculateResult()">診断する</button>
-</div> <div id="result-screen" class="hidden">
-    <h1>診断結果</h1>
-    <div id="result"></div>
+</div> 
 
-    <div id="result-image-container" style="margin: 0 auto; width: 100%; max-width: 150px; text-align: center;">
-        <img id="result-image" src="" alt="" style="width: 100%; height: auto; display: none; border-radius: 12px;">
+<div id="result-screen" class="hidden">
+    <div class="result-card">
+        <h2 class="result-header-title">診断結果</h2>
+        <!-- カード内部：3ページのスライダー -->
+        <div class="slider-container" id="sliderContainer">
+            <div class="slider-track" id="sliderTrack">
+
+                <!-- カード1ページ目 -->
+                <div class="slide-page slide-page-1">
+                    <div id="result"></div>
+                    <div id="result-image-container" style="margin: 0 auto; width: 100%; max-width: 150px; text-align: center;">
+                        <img id="result-image" src="" alt="診断結果画像" style="width: 100%; height: auto; display: none; border-radius: 12px;">
+                    </div>
+                </div>
+
+                <!-- カード2ページ目 -->
+                <div class="slide-page slide-page-2">
+                    <h3 class="slide-subtitle subtitle-graph">タイプ分析</h3>
+                    <div id="result-charts-container"></div>
+                </div>
+
+                <!-- カード3ページ目 -->
+                <div class="slide-page slide-page-3">
+                    <h3 class="slide-subtitle subtitle-desc">解説</h3>
+                    <div id="result-description-box"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 下部ドットインジケーター -->
+        <div class="dots-container" id="dotsContainer">
+            <span class="dot active" onclick="goToSlide(0)"></span>
+            <span class="dot" onclick="goToSlide(1)"></span>
+            <span class="dot" onclick="goToSlide(2)"></span>
+        </div>
     </div>
 
-    <div id="result-charts-container"></div>
-
-    <!-- JavaScriptから解説文を受け取る枠 -->
-    <div id="result-description-box"></div>
-
-    <div class="share-prompt">
-        <strong>#バレエタイプ診断16</strong>で投稿してね！
+    <!-- カード外下部 -->
+    <div class="result-footer-actions">
+        <p class="share-prompt"><strong>#バレエタイプ診断16</strong>で投稿してね！</p>
+        <button onclick="location.reload()" style="margin-top: 20px;">もう一度診断する</button>
     </div>
-
-    <button onclick="location.reload()" style="margin-top: 20px;">もう一度診断する</button>
 </div>
 
     <script>
@@ -1177,6 +1376,12 @@
 ・マルグリットとアルマン（アシュトン版椿姫）`
         };
 
+        // スライダー用の管理変数
+        let currentSlide = 0;
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let activeDotColor = "#333333";
+
         function calculateResult() {
             // 未回答の設問がないか厳密にチェック
             const totalQuestions = 28;
@@ -1223,6 +1428,15 @@
             } else if (["TDGS", "TDGC", "IDGS", "IDGC"].includes(type)) {
                 colorGroup = "group4";
             }
+
+            // グループ別ドット（アクティブ時）の濃いめカラー定義
+            const groupDotColors = {
+                "group1": "#d4a373",
+                "group2": "#4a90e2",
+                "group3": "#e76f51",
+                "group4": "#9b51e0"
+            };
+            activeDotColor = groupDotColors[colorGroup] || "#333333";
 
             // 各グループに対応するbody背景色のマップを定義
             const bodyBgColors = {
@@ -1312,6 +1526,9 @@
                 descriptionBox.classList.add(`border-${colorGroup}`);
             }
 
+            // スライダー初期化＆イベント登録
+            initResultSlider();
+
             // 画面の切り替え処理
             // １．質問画面に 「hidden」 クラスをつけて隠す
             document.getElementById("quiz-screen").classList.add("hidden");
@@ -1321,6 +1538,75 @@
             document.getElementById("result-screen").classList.remove("hidden");
             // ４．画面を一番上までスクロールさせる
             window.scrollTo(0,0);
+        }
+
+        /* 以下、スライダー制御用の新設関数群 */
+
+        function initResultSlider() {
+            currentSlide = 0;
+            updateSliderPosition();
+            setupSwipeEvents();
+        }
+
+        function goToSlide(index) {
+            if (index < 0) index = 0;
+            if (index > 2) index = 2;
+            currentSlide = index;
+            updateSliderPosition();
+        }
+
+        function updateSliderPosition() {
+            const track = document.getElementById("sliderTrack");
+            if (track) {
+                track.style.transform = `translateX(-${currentSlide * 33.333}%)`;
+            }
+
+            // ドット状態更新
+            const dots = document.querySelectorAll(".dot");
+            dots.forEach((dot, idx) => {
+                if (idx === currentSlide) {
+                    dot.classList.add("active");
+                    dot.style.backgroundColor = activeDotColor;
+                } else {
+                    dot.classList.remove("active");
+                    dot.style.backgroundColor = "#b1b1b1";
+                }
+            });
+        }
+
+        function setupSwipeEvents() {
+            const container = document.getElementById("sliderContainer");
+            if (!container) return;
+
+            // スワイプイベント（スマホ操作）
+            container.ontouchstart = (e) => {
+                touchStartX = e.changeTouches[0].screenX;
+            };
+
+            container.ontouched = (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            };
+
+            // クリックイベント（PC操作：左側1/3クリックで前へ、右側2/3で次へ）
+            container.onclick = (e) => {
+                const rect = container.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                if (clickX < rect.width / 3) {
+                    goToSlide(currentSlide - 1);
+                } else if (clickX > rect.width / 3) {
+                    goToSlide(currentSlide + 1);
+                }
+            };
+        }
+
+        function handleSwipe() {
+            const threshold = 40;
+            if (touchStartX - touchEndX > threshold) {
+                goToSlide(currentSlide + 1);
+            } else if (touchEndX - touchStartX > threshold) {
+                goToSlide(currentSlide - 1);
+            }
         }
     </script>
 </body>
