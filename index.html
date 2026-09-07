@@ -299,6 +299,11 @@
             text-align: center;
         }
 
+        .slide-page-1 {
+            justify-content: flex-start;
+            min-height: 0;
+        }
+
         .slide-page-2 {
             justify-content: center;
             align-items: center;
@@ -409,12 +414,24 @@
             letter-spacing: 2px;
         }
 
+        #result-image-container {
+            margin: auto 0;
+            width: 100%;
+            max-width: 180px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .result-character-image {
             max-width: 200%;
-            width: 150%;
+            width: 200%;
             height: auto;
+            object-fit: contain;
             margin: 8px auto 8px;
             display: block;
+            border-radius: 12px;
         }
 
         /* ４グループずつのカラー判定用クラス */
@@ -1169,8 +1186,8 @@
                 <!-- カード1ページ目 -->
                 <div class="slide-page slide-page-1">
                     <div id="result"></div>
-                    <div id="result-image-container" style="margin: 0 auto; width: 100%; max-width: 150px; text-align: center;">
-                        <img id="result-image" src="" alt="診断結果画像" style="width: 100%; height: auto; display: none; border-radius: 12px;">
+                    <div id="result-image-container">
+                        <img id="result-image" src="" alt="診断結果画像">
                     </div>
                 </div>
 
