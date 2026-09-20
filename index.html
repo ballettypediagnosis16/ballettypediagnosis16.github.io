@@ -272,6 +272,7 @@
             cursor: pointer;
             display: flex;
             flex-direction: column;
+            touch-action: pan-y;
         }
 
         .slider-track {
@@ -1597,26 +1598,90 @@
             const container = document.getElementById("sliderContainer");
             if (!container) return;
 
-            // スワイプイベント（スマホ操作）
-            container.ontouchstart = (e) => {
-                touchStartX = e.changeTouches[0].screenX;
-            };
+            let startX = 0;
+            let startY = 0;
+            let isDragging = false;
+            let didSwipe = false;
 
-            container.ontouched = (e) => {
-                touchEndX = e.changedTouches[0].screenX;
-                handleSwipe();
-            };
+            // 横方向のフリックをブラウザのスクロールより優先
+            container.style.touchAction = "pan-y";
 
-            // クリックイベント（PC操作：左側1/3クリックで前へ、右側2/3で次へ）
-            container.onclick = (e) => {
+            // 指・ペン・マウスの押下開始
+            container.addEventListener("pointerdown", (e) => {
+                // 左クリック以外のマウス操作は無視
+                if (e.pointerType === "mouse" && e.button !== 0) return;
+
+                startX = e.clientX;
+                startY = e.clientY;
+                isDragging = true;
+                didSwipe = false;
+
+                // タッチ・ペン操作をこの要素で追跡
+                if (container.setPointerCapture) {
+                    container.setPointerCapture(e.pointerId);
+                }
+            });
+
+            // 指・ペン・マウスを離したとき
+            container.addEventListener("pointerup", (e) => {
+                if (!isDragging) return;
+
+                const endX = e.clientX;
+                const endY = e.clientY;
+
+                const deltaX = endX - startX;
+                const deltaY = endY - startY;
+
+                isDragging = false;
+
+                // 縦方向の移動が横方向より大きい場合は
+                // 「フリック」と判定しない
+                if (Math.abs(deltaY) > Math.abs(deltaX)) {
+                    return;
+                }
+
+                // 50px以上の横移動をフリックとして認識
+                const threshold = 50;
+
+                if (Math.abs(deltaX) >= threshold) {
+                    didSwipe = true;
+
+                    if (deltaX < 0) {
+                        // 左へフリック → 次のページ
+                        goToSlide(currentSlide + 1);
+                    } else {
+                        // 右へフリック → 前のページ
+                        goToSlide(currentSlide - 1);
+                    }
+                }
+            });
+
+            // pointercancel対策
+            container.addEventListener("pointercancel", () => {
+                isDragging = false;
+                didSwipe = false;
+            });
+
+            // PCでの従来のクリック操作も維持
+            container.addEventListener("click", (e) => {
+
+                // フリック直後のclickイベントは無視
+                if (didSwipe) {
+                    didSwipe = false;
+                    return;
+                }
+
                 const rect = container.getBoundingClientRect();
                 const clickX = e.clientX - rect.left;
+
                 if (clickX < rect.width / 3) {
+                    // 左側 → 前へ
                     goToSlide(currentSlide - 1);
-                } else if (clickX > rect.width / 3) {
+                } else {
+                    // 右側 → 次へ
                     goToSlide(currentSlide + 1);
                 }
-            };
+            });
         }
 
         function handleSwipe() {
