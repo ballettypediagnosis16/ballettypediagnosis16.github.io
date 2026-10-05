@@ -629,51 +629,98 @@
             color: #1da1f2;
         }
 
-        .share-button-group {
+        .share-icon-group {
             width: 100%;
             max-width: 360px;
-            margin: 0 auto;
+            margin: 18px auto 22px;
             display: flex;
-            flex-direction: column;
-            gap: 8px;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 24px;
         }
 
-        .result-share-btn {
-            width: 100%;
-            min-height: 46px;
-            padding: 10px 18px;
+        .share-icon-btn {
+            width: 62px;
+            padding: 0;
             border: none;
-            border-radius: 12px;
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 7px;
+            cursor: pointer;
+        }
+
+        .share-icon-circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 9px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
             box-sizing: border-box;
             transition: transform 0.15s ease, opacity 0.15s ease;
         }
 
-        .result-share-btn:active {
-            transform: scale(0.97);
+        .share-icon-btn:active .share-icon-circle {
+            transform: scale(0.92);
         }
 
-        .share-btn-icon {
-            font-size: 18px;
-            line-height: 1;
+        .share-icon-circle img {
+            width: 30px;
+            height: 30px;
+            display: block;
+            object-fit: contain;
         }
 
-        /* X */
-        .x-share-btn {
-            background-color: #000000;
-            color: #ffffff;
+        .share-icon-label {
+            font-size: 11px;
+            line-height: 1.2;
+            color: #555;
+            white-space: nowrap;
+        }
+
+        .instagram-circle {
+            background: linear-gradient(
+                135deg,
+                #833ab4 0%,
+                #fd1d1d 50%,
+                #fcb045 100%
+            );
+        }
+
+        .x-circle {
+            background-color: #000;
+        }
+
+        .line-circle {
+            background-color: #06c755;
+        }
+
+        .link-circle {
+            background-color: #f2f2f2;
+            border: 1px solid #d0d0d0;
         }
 
         /* 画像保存 */
-        .image-save-btn {
-            background-color: #eeeeee;
-            color: #333333;
+        .image-save-main-btn {
+            display: block;
+            width: 100%;
+            max-width: 360px;
+            min-height: 54px;
+            margin: 0 auto;
+            border: none;
+            border-radius: 30px;
+            background: #f72585;
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        .image-save-main-btn:active {
+            transform: scale(0.97);
         }
 
         /* ===保存完了オーバーレイ=== */
@@ -735,19 +782,22 @@
 
         .save-complete-actions {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             gap: 10px;
+            width: 100%;
         }
 
         .save-modal-btn {
-            width: 100%;
-            min-height: 46px;
-            padding: 10px 16px;
+            flex: 1 1 0;
+            min-width: 0;
+            min-height: 48px;
+            padding: 10px 8px;
             border: none;
             border-radius: 10px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
             cursor: pointer;
+            box-sizing: border-box;
         }
 
         .instagram-share-btn {
@@ -773,6 +823,14 @@
 
             body {
                 padding: 15px 8px !important;
+            }
+
+            .share-button-group {
+                flex-direction: column;
+            }
+
+            .result-share-btn {
+                width: 100%;
             }
 
             /* ヘッダー内のタイトル文字 */
@@ -1361,26 +1419,71 @@
     <!-- カード外下部 -->
     <div class="result-footer-actions">
         <p class="share-prompt">
-            <strong>#バレエタイプ診断</strong>共有しよう！
+            <strong>#バレエタイプ診断</strong>で感想を共有！
         </p>
 
-        <div class="share-button-group">
+        <div class="share-icon-group">
+            
             <button
                 type="button"
-                class="result-share-btn x-share-btn"
-                onclick="shareResultToX()">
-                <span class="share-btn-icon">𝕏</span>
-                <span>Xで結果をシェア</span>
+                class="share-icon-btn"
+                onclick="shareSavedImageToInstagram()"
+                aria-label="Instagramでシェア">
+                <span class="share-icon-circle instagram-circle">
+                    <img
+                        src="./images/instagram.svg"
+                        alt="">
+                </span>
+                <span class="share-icon-label">Instagram</span>
             </button>
 
             <button
                 type="button"
-                class="result=share-btn image-save-btn"
-                onclick="saveResultCardImage()">
-                <span class="share-btn-icon">▣</span>
-                <span>画像で保存</span>
+                class="share-icon-btn"
+                onclick="shareResultToX()"
+                aria-label="Xでシェア">
+                <span class="share-icon-circle x-circle">
+                    <img
+                        src="./images/x.svg"
+                        alt="">
+                </span>
+                <span class="share-icon-label">X</span>
             </button>
+
+            <button
+                type="button"
+                class="share-icon-btn"
+                onclick="shareResultToLINE()"
+                aria-label="LINEでシェア">
+                <span class="share-icon-circle line-circle">
+                    <img
+                        src="./images/line.svg"
+                        alt="">
+                </span>
+                <span class="share-icon-label">LINE</span>
+            </button>
+
+            <button
+                type="button"
+                class="share--icon-btn"
+                onclick="copyDiagnosisUrl()"
+                aria-label="URLをコピー">
+                <span class="share-icon-circle link-circle">
+                    <img
+                        src="./images/link.svg"
+                        alt="">
+                </span>
+                <span class="share-icon-label">リンク</span>
+            </button>
+
         </div>
+
+        <button
+            type="button"
+            class="image-save-main-btn"
+            onclick="saveResultCardImage()">
+            画像を保存
+        </button>
 
         <button onclick="location.reload()" style="margin-top: 20px;">もう一度診断する</button>
 
@@ -1618,24 +1721,27 @@
                 return;
             }
 
-            let scores = { T: 0, I: 0, E: 0, D: 0, P: 0, G: 0, S: 0, C: 0 };
+            window.currentDiagnosisScores = { T: 0, I: 0, E: 0, D: 0, P: 0, G: 0, S: 0, C: 0 };
             
             // 選択された回答をチェック
             const answers = document.querySelectorAll('.mbti-options input[type="radio"]:checked');
             answers.forEach((ans) => {
                 const [targetCharacter, level] = ans.value.split('_');
-                scores[targetCharacter] += parseInt(level, 10);
+                window.currentDiagnosisScores[targetCharacter] += parseInt(level, 10);
             });
 
             // 4つの指標を判定
             let type = "";
-            type += scores.T > scores.I ? "T" : "I";
-            type += scores.E > scores.D ? "E" : "D";
-            type += scores.P > scores.G ? "P" : "G";
-            type += scores.S > scores.C ? "S" : "C";
+            type += window.currentDiagnosisScores.T > window.currentDiagnosisScores.I ? "T" : "I";
+            type += window.currentDiagnosisScores.E > window.currentDiagnosisScores.D ? "E" : "D";
+            type += window.currentDiagnosisScores.P > window.currentDiagnosisScores.G ? "P" : "G";
+            type += window.currentDiagnosisScores.S > window.currentDiagnosisScores.C ? "S" : "C";
 
             // 16パターンの辞書から、該当する日本語ワードを取得
             const JapaneseTypeName = typeNames[type];
+            if (!JapaneseTypeName) {
+                return;
+            }
 
             // Googleアナリティクスに「診断完了」イベントと「確定したタイプ名」を送信 //
             gtag('event', 'diagnosis_complete', {
@@ -1693,51 +1799,10 @@
 
             // 各指標の％を計算（全28問、各４指標につき最大21点満点として計算）
             // どちらか片方のパーセンテージを算出し、50%を基準に左右へ割り振り
-            function calcPercent(leftScore, rightScore) {
-                const total = leftScore + rightScore;
-                if (total === 0) return 50; 
-                return Math.round((rightScore / total) * 100);
-            }
+            // 4つのグラフのHTMLを動的に組み立てる
+            renderResultCharts(scores);
 
-            //各項目の「右側（I,D,G,C）に寄っている割合（0%~100%）を算出
-            const pTI = calcPercent(scores.T, scores.I);
-            const pED = calcPercent(scores.E, scores.D);
-            const pPG = calcPercent(scores.P, scores.G);
-            const pSC = calcPercent(scores.S, scores.C);
-
-            // 表示用のデータをまとめる配列（項目名、左右の要素、スコア割合、テーマカラー）
-            const chartData = [
-                { title: "原動力", left: "保守型(T)", right: "変革型(I)", percent: pTI, groupClass: "bar-group1" },
-                { title: "価値観", left: "エンタメ型(E)", right: "教訓・哲学型(D)", percent: pED, groupClass: "bar-group2" },
-                { title: "感情", left: "情熱型(P)", right: "流麗型(G)", percent: pPG, groupClass: "bar-group3" },
-                { title: "楽しみ方", left: "堪能・咀嚼型(S)", right: "勢い・刺激型(C)", percent: pSC, groupClass: "bar-group4" }
-            ];
-
-            // ４つのグラフのHTMLを動的に組み立てる
-            let chartsHtml = "";
-            chartData.forEach(item => {
-                let displayTitle = "";
-                // 50%以上なら右側要素の勝ち、50%未満なら左側要素の勝ちとして%の見た目を調整
-                if (item.percent >= 50) {
-                    displayTitle = `<span class="${item.groupClass.replace('bar-', 'color-')}">${item.percent}% ${item.right.split('(')[0]}</span>`;
-                } else {
-                    displayTitle = `<span class="${item.groupClass.replace('bar-', 'color-')}">${100 - item.percent}% ${item.left.split('(')[0]}</span>`;
-                }
-
-                chartsHtml += `
-                    <div class="chart-row">
-                        <div class="chart-title">${item.title} : ${displayTitle}</div>
-                        <div class="chart-bar-area">
-                            <span class="element-label left">${item.left}</span>
-                            <div class="chart-track">
-                                <div class="chart-fill ${item.groupClass}" style="width: ${item.percent}%;"></div>
-                                <div class="chart-dot" style="left: ${item.percent}%; border-color: var(--bar-color);"></div>
-                            </div>
-                            <span class="element-label right">${item.right}</span>
-                        </div>
-                    </div>
-                `;
-            });
+            window.currentDiagnosisScores = scores;
 
             // HTMLにグラフを流し込む
             document.getElementById("result-charts-container").innerHTML = chartsHtml;
@@ -1964,9 +2029,12 @@
                 const canvas =
                     await html2canvas(clone, {
                         backgroundColor: "#ffffff",
-                        scale: 2,
+                        scale: captureScale,
                         useCORS: true,
-                        logging: false
+                        logging: false,
+                        imageTimeout: 15000,
+                        width: originalCard.offsetWidth,
+                        height: originalCard.offsetHeight
                     });
 
                 clone.remove();
@@ -2054,52 +2122,103 @@
             if (!savedResultImageBlob) {
                 alert(
                     "共有する画像がありません。\n" +
-                    "先に画像を保存してください。"
+                    "先に「画像で保存」を実行してください。"
                 );
                 return;
             }
 
-            const file =
-                new File(
-                    [saveResultImageBlob],
-                    createResultImageFileName(),
-                    {
-                        type: "image/png"
+            const isAndroid = /Android/i.test(navigator.userAgent);
+            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+            if (isIOS) {
+                const instagramAppUrl = "instagram://app";
+
+                let appOpened = false;
+
+                const onVisibilityChange = () => {
+                    if (document.hidden) {
+                        appOpened = true;
+                        document.removeEventListener(
+                            "visibilitychange",
+                            onVisibilityChange
+                        );
                     }
+                };
+
+                document.addEventListener(
+                    "visibilitychange",
+                    onVisibilityChange
                 );
 
-            if (
-                navigator.share &&
-                navigator.canShare &&
-                navigator.canShare({
-                    files: [file]
-                })
-            ) {
-                try {
-                    await navigator.share({
-                        files: [file],
-                        title: "バレエタイプ診断16",
-                        text: "#バレエタイプ診断16"
-                    });
-                } catch (error) {
-                    if (
-                        error &&
-                        error.name === "AbortError"
-                    ) {
-                        return;
-                    }
-                    console.error(
-                        "画像共有エラー:",
-                        error
+                window.location.href = instagramAppUrl;
+
+                setTimeout(() => {
+                    document.removeEventListener(
+                        "visibilitychange",
+                        onVisibilityChange
                     );
-                }
-            } else {
-                alert(
-                    "この端末・ブラウザでは直接共有できません。\n\n" +
-                    "保存した画像をInstagramで開き、" +
-                    "ストーリーズに追加してください。"
+
+                    if (!appOpened) {
+                        alert(
+                            "Instagramアプリを起動できませんでした。\n\n" +
+                            "先ほど保存した画像をInstagramから選択して投稿してください。"
+                        );
+                    }
+                }, 1200);
+
+                return;
+            }
+
+            if (isAndroid) {
+                const instagramAppUrl =
+                    "intent://instagram.com/#Intent;" +
+                    "package=com.instagram.android;" +
+                    "scheme=https;" +
+                    "end";
+
+                window.location.href = instagramAppUrl;
+
+                return;
+            }
+
+            window.open(
+                "https://www.instagram.com/",
+                "_blank",
+                "noopener,noreferrer"
+            );
+        }
+
+        /* ===結果URLを生成=== */
+        function createResultShareUrl() {
+            const scores = window.currentDiagnosisScores;
+            const resultType =
+                document
+                    .querySelector(".result-type-code")
+                    ?.textContent
+                    .replace(/[（）()]/g, "")
+                    .trim();
+            if (!scores || !resultType) {
+                return (
+                    window.location.origin +
+                    window.location.pathname
                 );
             }
+            const params = new URLSearchParams();
+            params.set("result", resultType);
+            params.set("t", scores.T);
+            params.set("i", scores.I);
+            params.set("e", scores.E);
+            params.set("d", scores.D);
+            params.set("p", scores.P);
+            params.set("g", scores.G);
+            params.set("s", scores.S);
+            params.set("c", scores.C);
+            return (
+                window.location.origin +
+                window.location.pathname +
+                "?" +
+                params.toString()
+            );
         }
 
         /* ===診断URLをコピー=== */
@@ -2176,39 +2295,379 @@
 
         /* ===Xで診断結果をシェア=== */
         function shareResultToX() {
-            const resultName =
-                typeof JapaneseTypeName !== "undefined"
-                    ? JapaneseTypeName
-                    : "";
+            const resultNameElement = document.querySelector(".result-type-name");
 
-            const resultCode =
-                typeof type !== "undefined"
-                    ? type
-                    : "";
+            const resultName = resultNameElement
+                ? resultNameElement.textContent.trim()
+                : "診断結果";
 
-            const diagnosisUrl =
-                window.location.origin +
-                window.location.pathname;
+            const resultCodeElement = document.querySelector(".result-type-code");
+
+            const resultCode = resultCodeElement
+                ? resultCodeElement.textContent
+                    .replace(/[（）()]/g, "")
+                    .trim()
+                : "";
+
+            const diagnosisUrl = createResultUrl();
 
             const postText =
                 `私のバレエタイプは「${resultName}」でした！\n` +
                 `（${resultCode}）\n\n` +
-                `あなたは何タイプ？\n` +
-                `#バレエタイプ診断16`;
+                `みんなは何タイプ？\n` +
+                `#バレエタイプ診断`;
 
-            const xIntentUrl =
-                "https://x.com/intent/post?" +
+            const xWebIntent = "https://x.com/intent/post?" +
                 new URLSearchParams({
                     text: postText,
                     url: diagnosisUrl
                 }).toString();
 
-            window.open(
-                xIntentUrl,
-                "_blank",
-                "noopener,noreferrer"
-            );
+            const xAppUrl = "twitter://post?" +
+                new URLSearchParams({
+                    text: postText,
+                    url: diagnosisUrl
+                }).toString();
+
+            const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+            if (isMobile) {
+                let appOpened = false;
+
+                const onVisibilityChange = () => {
+                    if (document.hidden) {
+                        appOpened = true;
+                        document.removeEventListener(
+                            "visibilitychange",
+                            onVisibilityChange
+                        );
+                    }
+                };
+
+                document.addEventListener(
+                    "visibilitychange",
+                    onVisibilityChange
+                );
+
+                window.location.href = xAppUrl;
+
+                setTimeout(() => {
+                    document.removeEventListener(
+                        "visibilitychange",
+                        onVisibilityChange
+                    );
+
+                    if (!appOpened) {
+                        window.location.href = xWebIntent;
+                    }
+                }, 1200);
+
+            } else {
+                window.open(
+                    xWebIntent,
+                    "_blank",
+                    "noopener,noreferrer"
+                );
+            }
         }
+
+        function shareResultToLINE() {
+            const resultNameElement = document.querySelector(".result-type-name");
+            const resultName = 
+                resultNameElement
+                    ? resultNameElement.textContent.trim()
+                    : "診断結果";
+            const diagnosisUrl = window.location.origin + window.location.pathname;
+            const shareText =
+                `私のバレエタイプは「${resultName}」でした！\n` +
+                `#バレエタイプ診断\n` +
+                diagnosisUrl;
+            const lineUrl =
+                "https://line.me/R/msg/text/?" +
+                encodeURIComponent(shareText);
+            window.location.href = lineUrl;
+        }
+
+        function loadShareResultFromUrl() {
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+            const resultType =
+                params.get("result");
+            if (!resultType) {
+                return false;
+            }
+
+            const validTypes = [
+                "TEPS", "TEPC",
+                "TEGS", "TEGC",
+                "TDPS", "TDPC",
+                "TDGS", "TDGC",
+                "IEPS", "IEPC",
+                "IEGS", "IEGC",
+                "IDPS", "IDPC",
+                "IDGS", "IDGC"
+            ];
+
+            if (!validTypes.includes(resultType)) {
+                return false;
+            }
+
+            const scores = {
+                T: Number(params.get("t")),
+                I: Number(params.get("i")),
+                E: Number(params.get("e")),
+                D: Number(params.get("d")),
+                P: Number(params.get("p")),
+                G: Number(params.get("g")),
+                S: Number(params.get("s")),
+                C: Number(params.get("c"))
+            };
+
+            const scoreValues = Object.values(scores);
+
+            if (
+                scoreValues.some(
+                    value =>
+                        !Number.isFinite(value) ||
+                        value < 0
+                )
+            ) {
+                return false;
+            }
+
+            renderSharedResult(
+                resultType,
+                scores
+            );
+
+            return true;
+        }
+
+        function renderSharedResult(type, scores) {
+            window.currentDiagnosisScores = scores;
+
+            const JapaneseTypeName = typeNames[type];
+
+            if (!JapaneseTypeName) {
+                return;
+            }
+
+            let colorGroup = "";
+            if (
+                ["TEPS", "TEPC", "IEPS", "IEPC"]
+                    .includes(type)
+            ) {
+                colorGroup = "group1";
+
+            } else if (
+                ["TEGS", "TEGC", "IEGS", "IEGC"]
+                    .includes(type)
+            ) {
+                colorGroup = "group2";
+
+            } else if (
+                ["TDPS", "TDPC", "IDPS", "IDPC"]
+                    .includes(type)
+            ) {
+                colorGroup = "group3";
+
+            } else if (
+                ["TDGS", "TDGC", "IDGS", "IDGC"]
+                    .includes(type)
+            ) {
+                colorGroup = "group4";
+            }
+
+            const groupDotColors = {
+                group1: "#d4a373",
+                group2: "#4a90e2",
+                group3: "#e76f51",
+                group4: "#9b51e0"            
+            };
+
+            activeDotColor =
+                groupDotColors[colorGroup] ||
+                "#333333";
+
+            const bodyBgColors = {
+                group1:"rgba(247, 247, 238, 1)",
+                group2:"rgba(238, 244, 247, 1)",
+                group3:"rgba(247, 238, 238, 1)",
+                group4:"rgba(244, 238, 247, 1)"
+            };
+
+            const resultContainer =
+                document.getElementById(
+                    "result-screen"
+                );
+
+            if (
+                resultContainer && bodyBgColors[colorGroup]
+            ) {
+                resultContainer.style.backgroundColor = bodyBgColors[colorGroup];
+            }
+
+            document.getElementById(
+                "result"
+            ).innerHTML = `
+                <div class="result-label">あなたのタイプは…</div>
+                <div class="result-type-name bg-${colorGroup}">${JapaneseTypeName}</div>
+                <div class="result-type-code color-"${colorGroup}">(${type})</div>
+            `;
+
+            const resultImg =
+                document.getElementById(
+                    "result-image"
+                );
+            resultImg.src = `./images/${type}.png`;
+            resultImg.style.display = "block";
+
+            renderResultCharts(scores);
+
+            const descriptionBox =
+                document.getElementById(
+                    "result-description-box"
+                );
+            if (descriptionBox) {
+                descriptionBox.innerHTML = typeDescriptions[type];
+                descriptionBox.className = "";
+                descriptionBox.classList.add(
+                    `border-${colorGroup}`
+                );
+            }
+
+            initResultSlider();
+
+            document
+                .getElementById("quiz-screen")
+                .classList.add("hidden");
+            document
+                .getElementById("sticky-header")
+                .classList.add("hidden");
+            document
+                .getElementById("result-screen")
+                .classList.remove("hidden");
+
+            window.scrollTo(0, 0);
+        }
+
+        function renderResultCharts(scores) {
+            function calcPercent(
+                leftScore,
+                rightScore
+            ) {
+                const total = leftScore + rightScore;
+                if (total === 0) {
+                    return 50;
+                }
+                return Math.round(
+                    (rightScore / total) * 100
+                );
+            }
+            const pTI = calcPercent(scores.T, scores.I);
+            const pED = calcPercent(scores.E, scores.D);
+            const pPG = calcPercent(scores.P, scores.G);
+            const pSC = calcPercent(scores.S, scores.C);
+            const chartData = [
+                {
+                    title: "原動力",
+                    left: "保守型(T)",
+                    right: "変革型(I)",
+                    percent: pTI,
+                    groupClass: "bar-group1"
+                },
+                {
+                    title: "価値観",
+                    left: "エンタメ型(E)",
+                    right: "教訓・哲学型(D)",
+                    percent: pED,
+                    groupClass: "bar-group2"
+                },
+                {
+                    title: "感情",
+                    left: "情熱型(P)",
+                    right: "流麗型(G)",
+                    percent: pPG,
+                    groupClass: "bar-group3"
+                },
+                {
+                    title: "楽しみ方",
+                    left: "堪能・咀嚼型(S)",
+                    right: "勢い・刺激型(C)",
+                    percent: pSC,
+                    groupClass: "bar-group4"
+                }
+            ];
+
+            let chartsHtml = "";
+
+            chartData.forEach(item => {
+                let displayTitle = "";
+                if (item.percent >= 50) {
+                    displayTitle = `<span class="${
+                        item.groupClass.replace(
+                            "bar-",
+                            "color-"
+                        )
+                    }">
+                        ${item.percent}%
+                        ${item.right.split("(")[0]}
+                    </span>`;
+                } else {
+                    displayTitle = `<span class="${
+                        item.groupClass.replace(
+                            "bar-",
+                            "color-"
+                        )
+                    }">
+                        ${100 - item.percent}%
+                        ${item.left.split("(")[0]}
+                    </span>`;
+                }
+                chartsHtml += `
+                    <div class="chart-row">
+                        <div class="chart-title">
+                            ${item.title} : ${displayTitle}
+                        </div>
+
+                        <div class="chart-bar-area">
+                            <span class="element-label left"
+                                ${item.left}
+                            </span>
+
+                            <div class="chart-track">
+                                <div
+                                    class="chart-fill ${item.groupClass}"
+                                    style="width:${item.percent}%;">
+                                </div>
+
+                                <div
+                                    class="chart-dot"
+                                    style="left:${item.percent}%;">
+                                </div>
+                            </div>
+
+                            <span class="element-label right">
+                                ${item.right}
+                            </span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById(
+                "result-charts-container"
+            ).innerHTML = chartsHtml;
+        }
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+                loadShareResultFromUrl();
+            }
+        );
     </script>
 </body>
 </html>
