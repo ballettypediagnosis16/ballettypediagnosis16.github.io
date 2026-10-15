@@ -676,7 +676,7 @@
         background-color: transparent !important;
         border: none !important;
         box-shadow: none !important;
-    }   
+    }
 
     /* SNS投稿を促すテキストのスタイリング */
     .share-prompt {
@@ -704,34 +704,37 @@
     }
 
     .share-icon-btn {
-        width: 56px;
-        height: 56px;
-        flex: 0 0 56px;
-        padding: 0;
-        margin: 0;
-        border: none;
-        border-radius: 0;
+        width: 64px !important;
+        height: 64px !important;
+        min-width: 64px !important;
+        min-height: 64px !important;
+        flex: 0 0 64px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
         background: transparent !important;
-        box-shadow: none;
-        display: flex;
+        box-shadow: none !important;
+        display: flex !important;
         flex-direction: column;
-        align-items: center;
+        align-items: center !important;
         gap: 7px;
         cursor: pointer;
         -webkit-tap-heighlight-color: transparent;
     }
 
     .share-icon-circle {
-        width: 56px;
-        height: 56px;
-        padding: 0;
-        margin: 0;
-        border: none;
-        border-radius: 0;
+        width: 64px !important;
+        height: 64px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
         background: transparent !important;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        box-shadow: none !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
         transition: transform 0.15s ease, opacity 0.15s ease;
     }
 
@@ -741,32 +744,21 @@
     }
 
     .share-icon-circle img {
-        width: 64px;
-        height: 64px;
-        display: block;
-        object-fit: contain;
+        width: 64px !important;
+        height: 64px !important;
+        max-width: none !important;
+        max-height: none !important;
+        display: block !important;
+        object-fit: contain !important;
     }
 
     /* SNSカラー */
-    .instagram-circle {
-        background: linear-gradient(
-            135deg,
-            #833ab4 0%,
-            #fd1d1d 50%,
-            #fcb045 100%
-        );
-    }
-
-    .x-circle {
-        background-color: #000;
-    }
-
-    .line-circle {
-        background-color: #06c755;
-    }
-
+    .instagram-circle,
+    .x-circle,
+    .line-circle,
     .link-circle {
         background: transparent !important;
+        background-color: transparent !important;
         border: none !important;
     }
 
