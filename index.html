@@ -611,6 +611,73 @@
         box-sizing: border-box;
     }
 
+    /* 4つのボタンのサイズを統一 */
+    .result-footer-actions .share-icon-btn {
+        width: 64px !important;
+        height: 64px !important;
+        min-width: 64px !important;
+        min-height: 64px !important;
+        flex: 0 0 64px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    /* アイコンを囲む要素の背景・枠線をすべて解除 */
+    .result-footer-actions .share-icon-circle {
+        width: 64px !important;
+        height: 64px !important;
+        min-width: 64px !important;
+        min-height: 64px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    /* SVG画像の表示領域を統一 */
+    .result-footer-actions .share-icon-circle img {
+        display: block !important;
+        width: 64px !important;
+        height: 64px !important;
+        max-width: none !important;
+        max-height: none !important;
+        object-fit: contain !important;
+    }
+
+    /* 各アイコンの背景色指定を無効化 */
+    .result-footer-actions .instagram-circle,
+    .result-footer-actions .x-circle,
+    .result-footer-actions .line-circle,
+    .result-footer-actions .link-circle {
+        background: transparent !important;
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    /* リンクボタン自体に残る水色背景を解除 */
+    .result-footer-actions .share-icon-btn[aria-label="URLをコピー"],
+    .result-footer-actions .share-icon-btn[aria-label="URLをコピー"]:hover,
+    .result-footer-actions .share-icon-btn[aria-label="URLをコピー"]:focus,
+    .result-footer-actions .share-icon-btn[aria-label="URLをコピー"]:active {
+        background: transparent !important;
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }   
+
     /* SNS投稿を促すテキストのスタイリング */
     .share-prompt {
         text-align: center;
