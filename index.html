@@ -1828,9 +1828,11 @@
         // 11. グラフ
         // ==============================
 
-        renderResultCharts(
-            window.currentDiagnosisScores
-        );
+        // 診断スコアを保存
+        window.currentDiagnosisScores = scores;
+        
+        // グラフの生成と表示はこの関数に任せる
+        renderResultCharts(scores);
 
         // ==============================
         // 12. 解説
@@ -2095,7 +2097,7 @@
                     </div>
 
                     <div class="chart-bar-area">
-                        <span class="element-label left"
+                        <span class="element-label left">
                             ${item.left}
                         </span>
 
@@ -2119,9 +2121,7 @@
             `;
         });
 
-        document.getElementById(
-            "result-charts-container"
-        ).innerHTML = chartsHtml;
+        document.getElementById("result-charts-container").innerHTML = chartsHtml;
     }
 
     /* ===診断結果カードを画像として保存=== */
