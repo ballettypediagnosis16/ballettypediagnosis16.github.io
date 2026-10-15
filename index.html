@@ -1828,11 +1828,9 @@
         // 11. グラフ
         // ==============================
 
-        // 診断スコアを保存
-        window.currentDiagnosisScores = scores;
-        
-        // グラフの生成と表示はこの関数に任せる
-        renderResultCharts(scores);
+        renderResultCharts(
+            window.currentDiagnosisScores
+        );
 
         // ==============================
         // 12. 解説
